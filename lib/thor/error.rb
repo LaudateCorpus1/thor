@@ -11,7 +11,15 @@ class Thor
                     end
                   end
 
-                  DidYouMean::Correctable
+                  Module.new do
+                    def to_s
+                      super + DidYouMean.formatter.message_for(corrections)
+                    end
+
+                    def corrections
+                      @corrections ||= self.class.const_get(:SpellChecker).new(self).corrections
+                    end
+                  end
                 end
 
   # Thor::Error is raised when it's caused by wrong usage of thor classes. Those
@@ -99,12 +107,5 @@ class Thor
   end
 
   class MalformattedArgumentError < InvocationError
-  end
-
-  if Correctable
-    DidYouMean::SPELL_CHECKERS.merge!(
-      'Thor::UndefinedCommandError' => UndefinedCommandError::SpellChecker,
-      'Thor::UnknownArgumentError' => UnknownArgumentError::SpellChecker
-    )
   end
 end

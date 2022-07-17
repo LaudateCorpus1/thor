@@ -14,11 +14,12 @@ Gem::Specification.new do |spec|
   spec.licenses = %w(MIT)
   spec.name = "thor"
   spec.metadata = {
-    "bug_tracker_uri" => "https://github.com/erikhuda/thor/issues",
-    "changelog_uri" => "https://github.com/erikhuda/thor/blob/master/CHANGELOG.md",
+    "bug_tracker_uri" => "https://github.com/rails/thor/issues",
+    "changelog_uri" => "https://github.com/rails/thor/releases/tag/v#{Thor::VERSION}",
     "documentation_uri" => "http://whatisthor.com/",
-    "source_code_uri" => "https://github.com/erikhuda/thor/tree/v#{Thor::VERSION}",
-    "wiki_uri" => "https://github.com/erikhuda/thor/wiki"
+    "source_code_uri" => "https://github.com/rails/thor/tree/v#{Thor::VERSION}",
+    "wiki_uri" => "https://github.com/rails/thor/wiki",
+    "rubygems_mfa_required" => "true",
   }
   spec.require_paths = %w(lib)
   spec.required_ruby_version = ">= 2.0.0"

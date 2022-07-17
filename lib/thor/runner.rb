@@ -2,10 +2,10 @@ require_relative "../thor"
 require_relative "group"
 
 require "yaml"
-require "digest/md5"
+require "digest/sha2"
 require "pathname"
 
-class Thor::Runner < Thor #:nodoc: # rubocop:disable ClassLength
+class Thor::Runner < Thor #:nodoc:
   autoload :OpenURI, "open-uri"
 
   map "-T" => :list, "-i" => :install, "-u" => :update, "-v" => :version
@@ -45,7 +45,7 @@ class Thor::Runner < Thor #:nodoc: # rubocop:disable ClassLength
 
   desc "install NAME", "Install an optionally named Thor file into your system commands"
   method_options :as => :string, :relative => :boolean, :force => :boolean
-  def install(name) # rubocop:disable MethodLength
+  def install(name) # rubocop:disable Metrics/MethodLength
     initialize_thorfiles
 
     # If a directory name is provided as the argument, look for a 'main.thor'
@@ -91,7 +91,7 @@ class Thor::Runner < Thor #:nodoc: # rubocop:disable ClassLength
     end
 
     thor_yaml[as] = {
-      :filename   => Digest::MD5.hexdigest(name + as),
+      :filename   => Digest::SHA256.hexdigest(name + as),
       :location   => location,
       :namespaces => Thor::Util.namespaces_in_content(contents, base)
     }
